@@ -1,6 +1,6 @@
-import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   /* config options here */
   images: {
     unoptimized: true,
@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     //     hostname: "placehold.co",
     //   }
     // ],
-  }  
+  },
 };
 
 export default nextConfig;

@@ -20,6 +20,7 @@ import Image from "next/image";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { homeIcon, xIcon } from "@progress/kendo-svg-icons";
 import { Card, CardBody, CardTitle } from "@progress/kendo-react-layout";
+import getAIResponse from "@/lib/ai-service";
 
 // Define the user
 const user = {
@@ -148,21 +149,24 @@ export default function AiAssistant() {
 
     // Process the user's message and generate a response using the API
     try {
-      const response = await fetch("/api/ai-service", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userMessage: userMessage.text, chatHistory }),
+      // const response = await fetch("/api/ai-service", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ userMessage: userMessage.text, chatHistory }),
+      // });
+
+      // if (!response.ok) {
+      //   throw new Error("Network response was not ok");
+      // }
+      // const data = await response.json();
+      // console.log("AI response:", data);
+
+      const fullText = await getAIResponse({
+        userMessage: userMessage.text,
+        chatHistory,
       });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      console.log("AI response:", data);
-
-      const fullText = data.response;
 
       // Complete the response
       // setIsProcessing(false);

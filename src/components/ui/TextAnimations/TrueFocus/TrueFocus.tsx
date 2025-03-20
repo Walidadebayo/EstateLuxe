@@ -2,7 +2,7 @@
 	Installed from https://reactbits.dev/ts/default/
 */
 
-import { useEffect, useRef, useState, RefObject } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import "./TrueFocus.css";
 
@@ -35,7 +35,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
   const words = sentence.split(" ");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [lastActiveIndex, setLastActiveIndex] = useState<number | null>(null);
-  const containerRef: RefObject<HTMLDivElement> = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const wordRefs: React.MutableRefObject<(HTMLSpanElement | null)[]> = useRef(
     [],
   );
@@ -96,7 +96,9 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
         return (
           <span
             key={index}
-            ref={(el) => (wordRefs.current[index] = el)}
+            ref={(el) => {
+              wordRefs.current[index] = el;
+            }}
             className={`focus-word ${manualMode ? "manual" : ""} ${
               isActive && !manualMode ? "active" : ""
             }`}

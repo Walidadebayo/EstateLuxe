@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+/* Default Theme Styles */
+.theme-default {
+  --kendo-color-primary: #ff6358;
+}
+
+/* Bootstrap Theme Styles */
+/* .theme-bootstrap {
+@import "@progress/kendo-theme-bootstrap/dist/all.css";
+--kendo-color-primary: #0D6EFD;
+} */
+
+/* Custom Bootstrap Theme */
+/* .theme-custom-bootstrap {
+@import "../styles/custom-theme-bootstrap.css";
+--kendo-color-primary: #2E8B57;
+} */
+
+/* .dark {
+@import "../styles/dark-theme-bootstrap.css";
+--kendo-color-primary: #0D6EFD;
+} */
+
+/* Custom Dark Theme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background-color: var(--kendo-color-primary);
+  color: var(--foreground);
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--kendo-color-primary);
+  border-radius: 4px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--kendo-color-primary) transparent;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@theme {
+  --color-primary: var(--kendo-primary);
+  --color-primary-foreground: hsl(0, 0%, 98%);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+}
+
+@layer base {
+  :root {
+    --background: hsl(0, 0%, 100%);
+    --foreground: hsl(0, 0%, 3.9%);
+    --primary: #0070f3;
+    --kendo-primary: var(--kendo-color-primary, --primary);
+    --border: hsl(0, 0%, 14.9%);
+    --primary-foreground: hsl(0, 0%, 98%);
+    --secondary: hsl(0, 0%, 96.1%);
+    --secondary-foreground: hsl(0, 0%, 9%);
+    --muted: hsl(0, 0%, 96.1%);
+    --muted-foreground: hsl(0, 0%, 45.1%);
+    --accent: hsl(0, 0%, 96.1%);
+    --accent-foreground: hsl(0, 0%, 9%);
+  }
+  .dark {
+    /* --kendo-color-surface-alt: hsl(215 27.9% 16.9%) !important;
+        --kendo-color-app-surface: hsl(215 27.9% 16.9%) !important;
+        --kendo-color-on-app-surface: hsl(0 0% 98%) !important;
+        --kendo-color-surface: hsl(215 27.9% 16.9%) !important;
+        --kendo-color-base: hsl(214, 24%, 24%) !important;
+        --kendo-color-base-hover: hsl(214, 12%, 35%) !important;
+        --kendo-color-on-base: hsl(0 0% 98%) !important;
+        --kendo-color-border: hsl(215, 15%, 34%) !important; */
+    /* --background: hsl(220.9, 39.3%, 11%); */
+    --background: #121416;
+    --foreground: hsl(0, 0%, 98%);
+    --primary: #0070f3;
+    --primary-foreground: hsl(0, 0%, 9%);
+    --secondary: hsl(0, 0%, 14.9%);
+    --secondary-foreground: hsl(0, 0%, 98%);
+    --muted: hsl(0, 0%, 14.9%);
+    --muted-foreground: hsl(0, 0%, 63.9%);
+    --accent: hsl(0, 0%, 14.9%);
+    --accent-foreground: hsl(0, 0%, 98%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* @utility bg-primary {
+    background-color: var(--primary);
+  }
+  @utility bg-primary-*{
+    background-color: #--value(integer)
+  } */
+
+/* .k-dropdown {
+    width: 200px;
+    margin-right: 20px;
+  } */
+
+.k-chat .k-message-list {
+  scroll-behavior: auto !important;
+}

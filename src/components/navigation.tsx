@@ -61,6 +61,7 @@ export function Navigation() {
   const getNavItems = () => {
     if (isAdmin) {
       return [
+        { name: "Home", href: "/", icon: Home },
         { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
         { name: "Properties", href: "/admin/properties", icon: Building },
         { name: "Tenants", href: "/tenants", icon: Users },

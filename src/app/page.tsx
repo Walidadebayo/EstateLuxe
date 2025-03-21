@@ -25,7 +25,7 @@ import { mockProperties } from "@/lib/mock-data";
 import NextImage from "next/image";
 import CountUp from "@/components/ui/TextAnimations/CountUp/CountUp";
 import { SvgIcon } from "@progress/kendo-react-common";
-import { arrowRightIcon, mapMarkerIcon } from "@progress/kendo-svg-icons";
+import { arrowRightIcon, mapMarkerIcon, searchIcon } from "@progress/kendo-svg-icons";
 import CircularGallery from "@/components/ui/Components/CircularGallery/CircularGallery";
 import TrueFocus from "@/components/ui/TextAnimations/TrueFocus/TrueFocus";
 import useMounted from "@/hooks/useMounted";
@@ -126,6 +126,7 @@ export default function HomePage() {
                 </div>
               </div>
               <Button
+                startIcon={<SvgIcon icon={searchIcon} />}
                 type="submit"
                 themeColor={"primary"}
                 className="m-1 md:m-2 px-6"
@@ -136,7 +137,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex gap-4 mt-5 sm:absolute sm:bottom-8">
+          <div className="flex gap-4 mt-5 absolute bottom-6">
             <Button
               fillMode="flat"
               className="bg-background/80 !text-white hover:bg-background/30 backdrop-blur-sm"
@@ -448,7 +449,7 @@ export default function HomePage() {
       <section className="py-20 px-4">
         <div className="container mx-auto">
           <div>
-            <div className="bg-gradient-to-r from-primary rounded-2xl overflow-hidden">
+            <div className="bg-gradient-to-r from-primary to-primary/70 rounded-2xl overflow-hidden">
               <div className="flex flex-col lg:flex-row">
                 <div className="lg:w-1/2 p-12 flex flex-col justify-center">
                   <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

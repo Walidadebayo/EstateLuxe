@@ -553,6 +553,33 @@ export default function AiAssistant() {
     );
   };
 
+  // disable body scroll when chat is open and isMobile
+  useEffect(() => {
+    if (showChat && isMobile) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showChat, isMobile]);
+  
+  // Close chat when navigating to a different page
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setShowChat(false);
+      setShowPopover(false);
+    };
+
+    window.addEventListener("locationchange", handleRouteChange);
+    return () => {
+      window.removeEventListener("locationchange", handleRouteChange);
+      setShowChat(false);
+      setShowPopover(false);
+    };
+  }, [pathname]);
+
   return pathname !== "/ai-assistant" && (
     <>
       {/* Chat button */}
@@ -597,7 +624,7 @@ export default function AiAssistant() {
             ${
               !isMobile
                 ? "md:w-[400px] lg:w-[500px] bottom-24"
-                : "w-full h-screen bottom-0"
+                : "w-full h-screen"
             }
              bg-white dark:bg-[#1f2937] rounded-lg shadow-lg z-50`}
         >

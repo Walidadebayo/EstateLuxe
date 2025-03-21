@@ -172,7 +172,7 @@ export default function HomePage() {
           />
         ) : (
           <RollingGallery
-            autoplay={true}
+            autoplay={false}
             pauseOnHover={true}
             images={mockProperties.slice(0, 6).map((property) => {
               return property.image || "/placeholder.svg";

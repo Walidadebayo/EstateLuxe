@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 import AiAssistant from "@/components/ai-assistant";
 import "@progress/kendo-theme-default/dist/all.css";
 import Footer from "@/components/footer";
+import { AuthProvider } from "@/lib/auth-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,12 +36,14 @@ export default function RootLayout({
             dark: "dark",
           }}
         >
-          <div className="flex flex-col min-h-screen">
-            <Navigation />
-            <div className="flex-1 ">{children}</div>
-            <AiAssistant />
-            <Footer />
-          </div>
+          <AuthProvider>
+            <div className="flex flex-col min-h-screen">
+              <Navigation />
+              <div className="flex-1 ">{children}</div>
+              <AiAssistant />
+              <Footer />
+            </div>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

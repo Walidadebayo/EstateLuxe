@@ -19,8 +19,8 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { homeIcon, xIcon } from "@progress/kendo-svg-icons";
-import { Card, CardBody, CardTitle } from "@progress/kendo-react-layout";
 import getAIResponse from "@/lib/ai-service";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Define the user
 const user = {
@@ -61,10 +61,12 @@ export default function AiAssistant() {
   const [chatHistory, setChatHistory] = useState("");
   const chatButtonRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
+  const isMobile = useIsMobile();
+
 
   // Initial greeting when chat is opened
   useEffect(() => {
-    if ((showChat && messages.length === 0) || pathname === "/ai-assistant") {
+    if ((showChat && messages.length === 0)) {
       const initialMessage: ExtendedChatMessage = {
         author: bot,
         timestamp: new Date(),
@@ -84,6 +86,11 @@ export default function AiAssistant() {
             type: "reply",
             title: "Mortgage calculator",
             value: "Help me calculate mortgage payments",
+          },
+          {
+            type: "reply",
+            title: "What can i do?",
+            value: "What can you do?",
           },
         ],
         item: {
@@ -347,8 +354,7 @@ export default function AiAssistant() {
         userQueryLower.includes("home") ||
         userQueryLower.includes("house"))
     ) {
-      // For demonstration, we'll show some sample properties
-      // In a real implementation, you might parse the AI response to determine which properties to show
+      
       const recommendedProperties = getRecommendedProperties(5);
 
       return recommendedProperties.map((property) => ({
@@ -547,7 +553,7 @@ export default function AiAssistant() {
     );
   };
 
-  return pathname !== "/ai-assistant" ? (
+  return pathname !== "/ai-assistant" && (
     <>
       {/* Chat button */}
       <div
@@ -587,12 +593,20 @@ export default function AiAssistant() {
       {/* Chat window */}
       {showChat && (
         <div
-          className="fixed bottom-24 right-0 w-full md:w-[400px] lg:w-[500px] bg-white dark:bg-[#1f2937] rounded-lg shadow-lg z-50"
+          className={`fixed right-0
+            ${
+              !isMobile
+                ? "md:w-[400px] lg:w-[500px] bottom-24"
+                : "w-full h-screen bottom-0"
+            }
+             bg-white dark:bg-[#1f2937] rounded-lg shadow-lg z-50`}
         >
           <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-2">
               <Bot className="text-primary" size={20} />
-              <span className="text-lg font-semibold">EstateLuxeAI Assistant</span>
+              <span className="text-lg font-semibold">
+                EstateLuxeAI Assistant
+              </span>
             </div>
             <Button
               fillMode="flat"
@@ -618,55 +632,5 @@ export default function AiAssistant() {
         </div>
       )}
     </>
-  ) : (
-    <div className="container mx-auto px-4 py-8">
-      <Card className="shadow-md">
-        <CardBody>
-          <CardTitle className="flex items-center gap-2 mb-6">
-            <Bot className="text-primary" size={24} />
-            <span className="text-2xl font-bold">EstateLuxeAI Assistant</span>
-          </CardTitle>
-
-          <div className="p-4 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-600 mb-4">
-              Ask EstateLuxeAI about properties, get real estate advice, or
-              calculate mortgage payments. Try questions like &quot;Find me a
-              property in New York&quot; or &quot;Calculate mortgage for a
-              $500,000 home&quot;.
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-4">
-              <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
-                &quot;Find properties under $600,000&quot;
-              </div>
-              <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
-                &quot;Calculate mortgage payments&quot;
-              </div>
-              <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
-                &quot;Give me real estate advice&quot;
-              </div>
-              <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
-                &quot;Show properties in Miami&quot;
-              </div>
-            </div>
-
-            <Chat
-              user={user}
-              messages={messages}
-              onMessageSend={handleSendMessage}
-              placeholder="Type your question about real estate..."
-              width="100%"
-              onActionExecute={handleSuggestedActionClick}
-              messageTemplate={messageTemplate}
-            />
-
-            <div className="flex items-center justify-center mt-4 text-xs text-gray-500">
-              <Info size={12} className="mr-1" />
-              Powered by Google Gemini
-            </div>
-          </div>
-        </CardBody>
-      </Card>
-    </div>
-  );
+  )
 }

@@ -10,18 +10,29 @@ import {
 } from "@progress/kendo-react-layout";
 import { Button, DropDownButton } from "@progress/kendo-react-buttons";
 // import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
-import { Home, Search, Heart, User, Bot } from "lucide-react";
+import {
+  Home,
+  Heart,
+  Bot,
+  Building,
+  Users,
+  CreditCard,
+  LayoutDashboard,
+} from "lucide-react";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { menuIcon, userIcon, xIcon } from "@progress/kendo-svg-icons";
 import { useTheme } from "next-themes";
 import { DropDownList } from "@progress/kendo-react-dropdowns";
 import Image from "next/image";
+import { useAuth } from "@/lib/auth-context";
 
 export function Navigation() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const { user, isAuthenticated, isAdmin, logout } = useAuth();
+
   useEffect(() => {
     const link = document.getElementById("theme-stylesheet") as HTMLLinkElement;
     link?.parentNode?.removeChild(link);
@@ -47,13 +58,32 @@ export function Navigation() {
     }
   }, [theme]);
 
-  const navItems = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "Search", href: "/search", icon: Search },
-    { name: "Favourites", href: "/favourites", icon: Heart },
-    { name: "Dashboard", href: "/dashboard", icon: User },
-    { name: "AI Assistant", href: "/ai-assistant", icon: Bot },
-  ];
+  const getNavItems = () => {
+    if (isAdmin) {
+      return [
+        { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
+        { name: "Properties", href: "/admin/properties", icon: Building },
+        { name: "Tenants", href: "/tenants", icon: Users },
+        { name: "Payments", href: "/payments", icon: CreditCard },
+      ];
+    } else if (isAuthenticated) {
+      return [
+        { name: "Home", href: "/", icon: Home },
+        { name: "Properties", href: "/search", icon: Building },
+        { name: "AI Assistant", href: "/ai-assistant", icon: Bot },
+        { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+        { name: "Favourites", href: "/favourites", icon: Heart },
+      ];
+    } else {
+      return [
+        { name: "Home", href: "/", icon: Home },
+        { name: "Properties", href: "/search", icon: Building },
+        { name: "AI Assistant", href: "/ai-assistant", icon: Bot },
+      ];
+    }
+  };
+
+  const navItems = getNavItems();
 
   const isActive = (path: string) => {
     if (path === "/") {
@@ -64,7 +94,7 @@ export function Navigation() {
 
   return (
     <>
-      <AppBar className="dar: !border-b shadow-sm py-2 px-4 dark:border-gray-700 !sticky top-0 z-50 dark:shadow-slate-600 backdrop-blur-sm backdrop-filter">
+      <AppBar className="!border-b shadow-sm py-2 px-4 dark:border-gray-700 !sticky top-0 z-50 dark:shadow-slate-600 backdrop-blur-sm backdrop-filter">
         <AppBarSection>
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 text-primary">
@@ -104,25 +134,38 @@ export function Navigation() {
 
         <AppBarSpacer />
 
-        <AppBarSection className="ml-auto">
+        <AppBarSection className="ml-auto !flex-col">
           {/* Search Bar */}
 
           {/* User Menu */}
           <div className="flex items-center gap-2">
             {/* User Profile Button */}
             <DropDownButton
-              text="Admin"
+              text={
+                isAuthenticated ? (isAdmin ? "Admin" : user?.name) : "Guest"
+              }
               svgIcon={userIcon}
-              items={[
-                "Dashboard",
-                "Properties",
-                "Tenants",
-                "Payments",
-                "Settings",
-                "Logout",
-              ]}
+              items={
+                isAuthenticated
+                  ? [...navItems.map((item) => item.name), "Logout"]
+                  : ["Login", "Register"]
+              }
               onItemClick={(e) => {
-                router.push(`/admin/${e.item.toLowerCase()}`);
+                if (e.item === "Logout") {
+                  logout();
+                } else {
+                  router.push(
+                    `${
+                      e.item === "Login"
+                        ? "/auth/login"
+                        : e.item === "Register"
+                          ? "/auth/register"
+                          : isAdmin
+                            ? `/admin/${e.item.toLowerCase()}`
+                            : `/${e.item.toLowerCase().replace(" ", "-")}`
+                    }`
+                  );
+                }
               }}
             ></DropDownButton>
 
@@ -164,9 +207,10 @@ export function Navigation() {
           </div>
         </AppBarSection>
       </AppBar>
+
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-background">
+        <div className="md:hidden z-50 sticky top-0 shadow-lg bg-[var(--kendo-color-light)] dark:bg-[var(--kendo-color-dark)]">
           <div className="p-4 space-y-2">
             {navItems.map((item) => (
               <Link
@@ -174,7 +218,7 @@ export function Navigation() {
                 href={item.href}
                 className={`flex items-center gap-2 p-3 rounded-md text-base font-medium ${
                   isActive(item.href)
-                    ? "bg-gray-900 text-gray-700 dark:text-gray-400"
+                    ? "bg-primary/10 text-primary"
                     : "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}

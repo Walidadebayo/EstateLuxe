@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -14,6 +14,7 @@
     "@progress/kendo-data-query": "^1.7.1",
     "@progress/kendo-drawing": "^1.21.2",
     "@progress/kendo-licensing": "^1.5.1",
+    "@progress/kendo-react-animation": "^10.0.0",
     "@progress/kendo-react-buttons": "^10.0.0",
     "@progress/kendo-react-charts": "^10.0.0",
     "@progress/kendo-react-common": "^10.0.0",

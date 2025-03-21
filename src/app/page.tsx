@@ -30,6 +30,8 @@ import CircularGallery from "@/components/ui/Components/CircularGallery/Circular
 import TrueFocus from "@/components/ui/TextAnimations/TrueFocus/TrueFocus";
 import useMounted from "@/hooks/useMounted";
 import { ScrollView } from "@progress/kendo-react-scrollview";
+import { useIsMobile } from "@/hooks/use-mobile";
+import RollingGallery from "@/components/ui/Components/RollingGallery/RollingGallery";
 
 const testimonials = [
   {
@@ -62,6 +64,7 @@ export default function HomePage() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const mounted = useMounted();
+  const isMobile = useIsMobile();
 
   const handleSearch = () => {
     router.push(`/search?q=${searchQuery}`);
@@ -75,9 +78,11 @@ export default function HomePage() {
     router.push("/search");
   };
 
+  const key = Math.random().toString(36).substring(2, 15);
+
   return (
     <>
-      <div className="relative h-[60vh] overflow-hidden">
+      <div className="relative h-[80vh] overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center">
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -106,7 +111,7 @@ export default function HomePage() {
             platform
           </p>
 
-          <div className="w-full max-w-3xl bg-background rounded-lg shadow-xl overflow-hidden ">
+          <div className="w-full max-w-3xl bg-background rounded-lg shadow-xl ">
             <div className="flex flex-col md:flex-row">
               <div className="flex-1 p-4">
                 <div className="flex items-center">
@@ -131,17 +136,17 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="absolute bottom-8 flex gap-4">
+          <div className="flex gap-4 mt-5 sm:absolute sm:bottom-8">
             <Button
               fillMode="flat"
-              className="bg-background/20 !text-white hover:bg-background/30 backdrop-blur-sm"
+              className="bg-background/80 !text-white hover:bg-background/30 backdrop-blur-sm"
               onClick={() => router.push("/search")}
             >
               Browse Properties
             </Button>
             <Button
               fillMode="flat"
-              className="bg-background/20 !text-white hover:bg-background/30 backdrop-blur-sm"
+              className="bg-background/80 !text-white hover:bg-background/30 backdrop-blur-sm"
               onClick={() => router.push("/ai-assistant")}
               startIcon={<Bot size={18} className="mr-2" />}
             >
@@ -151,24 +156,35 @@ export default function HomePage() {
         </div>
       </div>
 
-      <section className="h-[600px] relative">
-        <CircularGallery
-          bend={3}
-          textColor="#ffffff"
-          borderRadius={0.05}
-          items={mockProperties.slice(0, 6).map((property) => {
-            return {
-              image: property.image || "/placeholder.svg",
-              text: property.name,
-            };
-          })}
-        />
+      <section className={!isMobile ? "h-[600px] relative" : ""}>
+        {!isMobile ? (
+          <CircularGallery
+            bend={3}
+            key={key}
+            textColor="#ffffff"
+            borderRadius={0.05}
+            items={mockProperties.slice(0, 6).map((property) => {
+              return {
+                image: property.image || "/placeholder.svg",
+                text: property.name,
+              };
+            })}
+          />
+        ) : (
+          <RollingGallery
+            autoplay={true}
+            pauseOnHover={true}
+            images={mockProperties.slice(0, 6).map((property) => {
+              return property.image || "/placeholder.svg";
+            })}
+          />
+        )}
       </section>
 
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl font-bold">Featured Properties</h2>
+          <div className="flex sm:justify-between items-center justify-center sm:flex-row flex-col text-center mb-12">
+            <h2 className="text-3xl font-bold text-center">Featured Properties</h2>
             <p className="text-foreground mt-2">
               Explore our handpicked selection of premium properties
             </p>
@@ -204,7 +220,6 @@ export default function HomePage() {
                       {property.status}
                     </div>
                   </div>
-
                   <CardBody>
                     <h3 className="font-bold text-xl mb-2 hover:text-primary transition-colors duration-300">
                       {property.name}
@@ -219,7 +234,6 @@ export default function HomePage() {
                     <p className="text-2xl font-bold text-primary mb-4">
                       ${property.price.toLocaleString()}
                     </p>
-
                     <div className="flex justify-between text-foreground mb-4">
                       <span className="flex items-center">
                         <Bed size={16} className="mr-1" /> {property.bedrooms}
@@ -231,7 +245,6 @@ export default function HomePage() {
                         <Home size={16} className="mr-1" /> {property.sqft} sqft
                       </span>
                     </div>
-
                     <Button
                       className="w-full"
                       onClick={() => handleViewProperty(property.id)}
@@ -342,14 +355,17 @@ export default function HomePage() {
           {/* <div className="grid grid-cols-1 gap-6"> */}
           {mounted && (
             <ScrollView
-              className="mb-8 grid place-items-center"
+              className="mb-8 grid place-items-center lg:!h-48 !rounded-xl !bg-gray-300 dark:!bg-[var(--kendo-color-dark)]"
               style={{
                 width: "100%",
-                height: 180,
+                height: 400,
               }}
+              automaticViewChange={false}
+              endless
+              pageable={false}
             >
               {testimonials.map((testimonial) => (
-                <Card key={testimonial.id} className="mx-auto">
+                <Card key={testimonial.id} className="mx-auto !border-none !bg-gray-300 dark:!bg-[var(--kendo-color-dark)]">
                   <CardBody className="p-8">
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                       <NextImage
@@ -373,7 +389,7 @@ export default function HomePage() {
                             />
                           ))}
                         </div>
-                        <p className="text-foreground italic mb-4 text-lg">
+                        <p className="text-foreground text-wrap whitespace-pre-wrap italic mb-4 text-lg">
                           &quot;{testimonial.text}&quot;
                         </p>
                         <div>

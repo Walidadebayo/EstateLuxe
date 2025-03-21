@@ -23,7 +23,6 @@ import getAIResponse from "@/lib/ai-service";
 import { Card, CardBody, CardTitle } from "@progress/kendo-react-layout";
 import MetaTitle from "@/components/MetaTitle";
 
-
 // Define the user
 const user = {
   id: 1,
@@ -60,10 +59,9 @@ export default function AiAssistantPage() {
   const [showChat, setShowChat] = useState(false);
   const [chatHistory, setChatHistory] = useState<string>("");
 
-
   // Initial greeting when chat is opened
   useEffect(() => {
-    if ((messages.length === 0)) {
+    if (messages.length === 0) {
       const initialMessage: ExtendedChatMessage = {
         author: bot,
         timestamp: new Date(),
@@ -104,7 +102,7 @@ export default function AiAssistantPage() {
 
       // Add initial message to chat history
       setChatHistory(
-        "EstateLuxeAI: Hello! I'm EstateLuxeAI, your real estate assistant. How can I help you today?"
+        "EstateLuxeAI: Hello! I'm EstateLuxeAI, your real estate assistant. How can I help you today?",
       );
     }
   }, [showChat, messages.length]);
@@ -168,7 +166,7 @@ export default function AiAssistantPage() {
 
         // Check if we need to add property attachments
         const propertyAttachments = getPropertyAttachmentsIfNeeded(
-          userMessage.text || ""
+          userMessage.text || "",
         );
 
         updatedMessages[lastIndex] = {
@@ -183,7 +181,7 @@ export default function AiAssistantPage() {
           attachments: propertyAttachments,
           suggestedActions: getSuggestedActionsForResponse(
             fullText,
-            userMessage.text || ""
+            userMessage.text || "",
           ),
           onRequestSelection: () => {},
           isFirstItemInGroup: false,
@@ -252,7 +250,6 @@ export default function AiAssistantPage() {
       const data = await response.json();
       const fullText = data.response;
 
-
       // Update chat history with AI response
       setChatHistory(`${updatedHistory}\nEstateLuxeAI: ${fullText}`);
 
@@ -262,9 +259,7 @@ export default function AiAssistantPage() {
         const lastIndex = updatedMessages.length - 1;
 
         // Check if we need to add property attachments
-        const propertyAttachments = getPropertyAttachmentsIfNeeded(
-          value
-        );
+        const propertyAttachments = getPropertyAttachmentsIfNeeded(value);
 
         updatedMessages[lastIndex] = {
           item: {
@@ -297,7 +292,7 @@ export default function AiAssistantPage() {
 
   // Function to get property attachments if needed based on the AI response and user query
   const getPropertyAttachmentsIfNeeded = (
-    userQuery: string
+    userQuery: string,
   ): Attachment[] | undefined => {
     const userQueryLower = userQuery.toLowerCase();
 
@@ -311,7 +306,6 @@ export default function AiAssistantPage() {
         userQueryLower.includes("home") ||
         userQueryLower.includes("house"))
     ) {
-      
       const recommendedProperties = getRecommendedProperties(5);
 
       return recommendedProperties.map((property) => ({
@@ -360,7 +354,7 @@ export default function AiAssistantPage() {
   // Function to get suggested actions based on the AI response and user query
   const getSuggestedActionsForResponse = (
     aiResponse: string,
-    userQuery: string
+    userQuery: string,
   ) => {
     const userQueryLower = userQuery.toLowerCase();
     const aiResponseLower = aiResponse.toLowerCase();
@@ -457,7 +451,7 @@ export default function AiAssistantPage() {
   // Function to get recommended properties
   const getRecommendedProperties = (
     count: number,
-    offset = false
+    offset = false,
   ): PropertyType[] => {
     const startIndex = offset ? 3 : 0;
     return mockProperties.slice(startIndex, startIndex + count);
@@ -466,7 +460,7 @@ export default function AiAssistantPage() {
   // Function to create a property card component
   const createPropertyCard = (
     property: PropertyType,
-    onClick: (id: string) => void
+    onClick: (id: string) => void,
   ) => {
     return (
       <div
@@ -510,53 +504,57 @@ export default function AiAssistantPage() {
     );
   };
 
-  return <>
-  <MetaTitle title="EstateLuxe AI Assistant">
-    <div className="container mx-auto px-4 py-8">
-        <Card className="shadow-md">
-          <CardBody>
-            <CardTitle className="flex items-center gap-2 mb-6">
-              <Bot className="text-primary" size={24} />
-              <span className="text-2xl font-bold">EstateLuxeAI Assistant</span>
-            </CardTitle>
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm text-gray-600 mb-4">
-                Ask EstateLuxeAI about properties, get real estate advice, or
-                calculate mortgage payments. Try questions like &quot;Find me a
-                property in New York&quot; or &quot;Calculate mortgage for a
-                $500,000 home&quot;.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
-                  &quot;Find properties under $600,000&quot;
+  return (
+    <>
+      <MetaTitle title="EstateLuxe AI Assistant">
+        <div className="container mx-auto px-4 py-8">
+          <Card className="shadow-md">
+            <CardBody>
+              <CardTitle className="flex items-center gap-2 mb-6">
+                <Bot className="text-primary" size={24} />
+                <span className="text-2xl font-bold">
+                  EstateLuxeAI Assistant
+                </span>
+              </CardTitle>
+              <div className="p-4 bg-gray-50 rounded-lg">
+                <p className="text-sm text-gray-600 mb-4">
+                  Ask EstateLuxeAI about properties, get real estate advice, or
+                  calculate mortgage payments. Try questions like &quot;Find me
+                  a property in New York&quot; or &quot;Calculate mortgage for a
+                  $500,000 home&quot;.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
+                    &quot;Find properties under $600,000&quot;
+                  </div>
+                  <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
+                    &quot;Calculate mortgage payments&quot;
+                  </div>
+                  <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
+                    &quot;Give me real estate advice&quot;
+                  </div>
+                  <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
+                    &quot;Show properties in Miami&quot;
+                  </div>
                 </div>
-                <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
-                  &quot;Calculate mortgage payments&quot;
-                </div>
-                <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
-                  &quot;Give me real estate advice&quot;
-                </div>
-                <div className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
-                  &quot;Show properties in Miami&quot;
+                <Chat
+                  user={user}
+                  messages={messages}
+                  onMessageSend={handleSendMessage}
+                  placeholder="Type your question about real estate..."
+                  width="100%"
+                  onActionExecute={handleSuggestedActionClick}
+                  messageTemplate={messageTemplate}
+                />
+                <div className="flex items-center justify-center mt-4 text-xs text-gray-500">
+                  <Info size={12} className="mr-1" />
+                  Powered by Google Gemini
                 </div>
               </div>
-              <Chat
-                user={user}
-                messages={messages}
-                onMessageSend={handleSendMessage}
-                placeholder="Type your question about real estate..."
-                width="100%"
-                onActionExecute={handleSuggestedActionClick}
-                messageTemplate={messageTemplate}
-              />
-              <div className="flex items-center justify-center mt-4 text-xs text-gray-500">
-                <Info size={12} className="mr-1" />
-                Powered by Google Gemini
-              </div>
-            </div>
-          </CardBody>
-        </Card>
-      </div>
-  </MetaTitle>
-  </>;
+            </CardBody>
+          </Card>
+        </div>
+      </MetaTitle>
+    </>
+  );
 }

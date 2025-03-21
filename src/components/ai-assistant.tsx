@@ -63,10 +63,9 @@ export default function AiAssistant() {
   const pathname = usePathname();
   const isMobile = useIsMobile();
 
-
   // Initial greeting when chat is opened
   useEffect(() => {
-    if ((showChat && messages.length === 0)) {
+    if (showChat && messages.length === 0) {
       const initialMessage: ExtendedChatMessage = {
         author: bot,
         timestamp: new Date(),
@@ -107,7 +106,7 @@ export default function AiAssistant() {
 
       // Add initial message to chat history
       setChatHistory(
-        "EstateLuxeAI: Hello! I'm EstateLuxeAI, your real estate assistant. How can I help you today?"
+        "EstateLuxeAI: Hello! I'm EstateLuxeAI, your real estate assistant. How can I help you today?",
       );
     }
   }, [showChat, messages.length, pathname]);
@@ -189,7 +188,7 @@ export default function AiAssistant() {
         // Check if we need to add property attachments
         const propertyAttachments = getPropertyAttachmentsIfNeeded(
           // fullText,
-          userMessage.text || ""
+          userMessage.text || "",
         );
 
         updatedMessages[lastIndex] = {
@@ -204,7 +203,7 @@ export default function AiAssistant() {
           attachments: propertyAttachments,
           suggestedActions: getSuggestedActionsForResponse(
             fullText,
-            userMessage.text || ""
+            userMessage.text || "",
           ),
           onRequestSelection: () => {},
           isFirstItemInGroup: false,
@@ -290,7 +289,7 @@ export default function AiAssistant() {
         // Check if we need to add property attachments
         const propertyAttachments = getPropertyAttachmentsIfNeeded(
           // fullText,
-          value
+          value,
         );
 
         updatedMessages[lastIndex] = {
@@ -340,7 +339,7 @@ export default function AiAssistant() {
 
   // Function to get property attachments if needed based on the AI response and user query
   const getPropertyAttachmentsIfNeeded = (
-    userQuery: string
+    userQuery: string,
   ): Attachment[] | undefined => {
     const userQueryLower = userQuery.toLowerCase();
 
@@ -354,7 +353,6 @@ export default function AiAssistant() {
         userQueryLower.includes("home") ||
         userQueryLower.includes("house"))
     ) {
-      
       const recommendedProperties = getRecommendedProperties(5);
 
       return recommendedProperties.map((property) => ({
@@ -403,7 +401,7 @@ export default function AiAssistant() {
   // Function to get suggested actions based on the AI response and user query
   const getSuggestedActionsForResponse = (
     aiResponse: string,
-    userQuery: string
+    userQuery: string,
   ) => {
     const userQueryLower = userQuery.toLowerCase();
     const aiResponseLower = aiResponse.toLowerCase();
@@ -500,7 +498,7 @@ export default function AiAssistant() {
   // Function to get recommended properties
   const getRecommendedProperties = (
     count: number,
-    offset = false
+    offset = false,
   ): PropertyType[] => {
     const startIndex = offset ? 3 : 0;
     return mockProperties.slice(startIndex, startIndex + count);
@@ -509,7 +507,7 @@ export default function AiAssistant() {
   // Function to create a property card component
   const createPropertyCard = (
     property: PropertyType,
-    onClick: (id: string) => void
+    onClick: (id: string) => void,
   ) => {
     return (
       <div
@@ -564,7 +562,7 @@ export default function AiAssistant() {
       document.body.style.overflow = "auto";
     };
   }, [showChat, isMobile]);
-  
+
   // Close chat when navigating to a different page
   useEffect(() => {
     const handleRouteChange = () => {
@@ -580,84 +578,86 @@ export default function AiAssistant() {
     };
   }, [pathname]);
 
-  return pathname !== "/ai-assistant" && (
-    <>
-      {/* Chat button */}
-      <div
-        ref={chatButtonRef}
-        className="fixed bottom-6 right-6 rounded-full w-14 h-14 flex items-center justify-center z-50"
-      >
-        <Button
-          className="shadow-lg !rounded-full w-14 h-14 hover:scale-110 transition-transform duration-300"
-          themeColor="primary"
-          onClick={toggleChat}
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose}
-        >
-          {showChat ? <SvgIcon icon={xIcon} /> : <MessageSquare size={24} />}
-        </Button>
-      </div>
-
-      {/* Popover hint */}
-      <Popup
-        anchor={chatButtonRef.current as HTMLElement | null}
-        show={showPopover}
-        anchorAlign={{
-          horizontal: "center",
-          vertical: "top",
-        }}
-        popupAlign={{
-          horizontal: "center",
-          vertical: "bottom",
-        }}
-        className="mb-2 rounded-2xl "
-      >
-        <div className="p-1 bg-background dark:bg-[#1f2937]">
-          <p className="text-xs">Chat with EstateLuxeAI</p>
-        </div>
-      </Popup>
-
-      {/* Chat window */}
-      {showChat && (
+  return (
+    pathname !== "/ai-assistant" && (
+      <>
+        {/* Chat button */}
         <div
-          className={`fixed right-0
+          ref={chatButtonRef}
+          className="fixed bottom-6 right-6 rounded-full w-14 h-14 flex items-center justify-center z-50"
+        >
+          <Button
+            className="shadow-lg !rounded-full w-14 h-14 hover:scale-110 transition-transform duration-300"
+            themeColor="primary"
+            onClick={toggleChat}
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+          >
+            {showChat ? <SvgIcon icon={xIcon} /> : <MessageSquare size={24} />}
+          </Button>
+        </div>
+
+        {/* Popover hint */}
+        <Popup
+          anchor={chatButtonRef.current as HTMLElement | null}
+          show={showPopover}
+          anchorAlign={{
+            horizontal: "center",
+            vertical: "top",
+          }}
+          popupAlign={{
+            horizontal: "center",
+            vertical: "bottom",
+          }}
+          className="mb-2 rounded-2xl "
+        >
+          <div className="p-1 bg-background dark:bg-[#1f2937]">
+            <p className="text-xs">Chat with EstateLuxeAI</p>
+          </div>
+        </Popup>
+
+        {/* Chat window */}
+        {showChat && (
+          <div
+            className={`fixed right-0
             ${
               !isMobile
                 ? "md:w-[400px] lg:w-[500px] bottom-24"
                 : "w-full h-screen"
             }
              bg-white dark:bg-[#1f2937] rounded-lg shadow-lg z-50`}
-        >
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-            <div className="flex items-center gap-2">
-              <Bot className="text-primary" size={20} />
-              <span className="text-lg font-semibold">
-                EstateLuxeAI Assistant
-              </span>
+          >
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-2">
+                <Bot className="text-primary" size={20} />
+                <span className="text-lg font-semibold">
+                  EstateLuxeAI Assistant
+                </span>
+              </div>
+              <Button
+                fillMode="flat"
+                startIcon={<SvgIcon icon={xIcon} />}
+                onClick={toggleChat}
+                className="p-1"
+              />
             </div>
-            <Button
-              fillMode="flat"
-              startIcon={<SvgIcon icon={xIcon} />}
-              onClick={toggleChat}
-              className="p-1"
-            />
+            <div className="p-4 h-full">
+              <Chat
+                user={user}
+                messages={messages}
+                onMessageSend={handleSendMessage}
+                placeholder="Type your question..."
+                width="100%"
+                onActionExecute={handleSuggestedActionClick}
+                messageTemplate={messageTemplate}
+              />
+            </div>
+            <span className="flex items-center justify-center gap-1 w-full text-xs text-gray-500 mb-2">
+              <Info size={12} /> Powered by Google Gemini
+            </span>
           </div>
-          <div className="p-4 h-full">
-            <Chat
-              user={user}
-              messages={messages}
-              onMessageSend={handleSendMessage}
-              placeholder="Type your question..."
-              width="100%"
-              onActionExecute={handleSuggestedActionClick}
-              messageTemplate={messageTemplate}
-            />
-          </div>
-          <span className="flex items-center justify-center gap-1 w-full text-xs text-gray-500 mb-2">
-            <Info size={12} /> Powered by Google Gemini
-          </span>
-        </div>
-      )}
-    </>
-  )
+        )}
+      </>
+    )
+  );
 }

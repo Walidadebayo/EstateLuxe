@@ -56,7 +56,7 @@ Keep responses conversational, helpful, and focused on real estate topics.
 `;
 export async function generateAIResponse(
   userMessage: string,
-  chatHistory = ""
+  chatHistory = "",
 ) {
   try {
     const prompt = `

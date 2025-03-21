@@ -25,7 +25,11 @@ import { mockProperties } from "@/lib/mock-data";
 import NextImage from "next/image";
 import CountUp from "@/components/ui/TextAnimations/CountUp/CountUp";
 import { SvgIcon } from "@progress/kendo-react-common";
-import { arrowRightIcon, mapMarkerIcon, searchIcon } from "@progress/kendo-svg-icons";
+import {
+  arrowRightIcon,
+  mapMarkerIcon,
+  searchIcon,
+} from "@progress/kendo-svg-icons";
 import CircularGallery from "@/components/ui/Components/CircularGallery/CircularGallery";
 import TrueFocus from "@/components/ui/TextAnimations/TrueFocus/TrueFocus";
 import useMounted from "@/hooks/useMounted";
@@ -77,8 +81,6 @@ export default function HomePage() {
   const handleViewAllProperties = () => {
     router.push("/search");
   };
-
-  const key = Math.random().toString(36).substring(2, 15);
 
   return (
     <>
@@ -161,7 +163,6 @@ export default function HomePage() {
         {!isMobile ? (
           <CircularGallery
             bend={3}
-            key={key}
             textColor="#ffffff"
             borderRadius={0.05}
             items={mockProperties.slice(0, 6).map((property) => {
@@ -185,7 +186,9 @@ export default function HomePage() {
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto">
           <div className="flex sm:justify-between items-center justify-center sm:flex-row flex-col text-center mb-12">
-            <h2 className="text-3xl font-bold text-center">Featured Properties</h2>
+            <h2 className="text-3xl font-bold text-center">
+              Featured Properties
+            </h2>
             <p className="text-foreground mt-2">
               Explore our handpicked selection of premium properties
             </p>
@@ -366,7 +369,10 @@ export default function HomePage() {
               pageable={false}
             >
               {testimonials.map((testimonial) => (
-                <Card key={testimonial.id} className="mx-auto !border-none !bg-gray-300 dark:!bg-[var(--kendo-color-dark)]">
+                <Card
+                  key={testimonial.id}
+                  className="mx-auto !border-none !bg-gray-300 dark:!bg-[var(--kendo-color-dark)]"
+                >
                   <CardBody className="p-8">
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                       <NextImage

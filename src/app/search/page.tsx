@@ -14,11 +14,7 @@ import {
 } from "@progress/kendo-react-inputs";
 import { RangeSlider } from "@progress/kendo-react-inputs";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  Bed,
-  Bath,
-  Search,
-} from "lucide-react";
+import { Bed, Bath, Search } from "lucide-react";
 
 import { mockProperties } from "@/lib/mock-data";
 import Image from "next/image";
@@ -57,10 +53,10 @@ export default function PropertySearch() {
 
   useEffect(() => {
     const storedFavourites = JSON.parse(
-      localStorage.getItem("favourites") || "[]"
+      localStorage.getItem("favourites") || "[]",
     );
     const propertyIds = storedFavourites.map(
-      (property: { id: string }) => property.id
+      (property: { id: string }) => property.id,
     );
     setFavourites(propertyIds);
   }, []);
@@ -94,30 +90,30 @@ export default function PropertySearch() {
       const updatedFavourites = favourites.filter((id) => id !== propertyId);
       setFavourites(updatedFavourites);
       const storedFavourites = JSON.parse(
-        localStorage.getItem("favourites") || "[]"
+        localStorage.getItem("favourites") || "[]",
       );
       const updatedStoredFavourites = storedFavourites.filter(
-        (property: { id: string }) => property.id !== propertyId
+        (property: { id: string }) => property.id !== propertyId,
       );
       localStorage.setItem(
         "favourites",
-        JSON.stringify(updatedStoredFavourites)
+        JSON.stringify(updatedStoredFavourites),
       );
     } else {
       const updatedFavourites = [...favourites, propertyId];
       setFavourites(updatedFavourites);
       const storedFavourites = JSON.parse(
-        localStorage.getItem("favourites") || "[]"
+        localStorage.getItem("favourites") || "[]",
       );
       const propertyToAdd = mockProperties.find(
-        (property) => property.id === propertyId
+        (property) => property.id === propertyId,
       );
 
       if (propertyToAdd) {
         const updatedStoredFavourites = [...storedFavourites, propertyToAdd];
         localStorage.setItem(
           "favourites",
-          JSON.stringify(updatedStoredFavourites)
+          JSON.stringify(updatedStoredFavourites),
         );
       }
     }
@@ -328,7 +324,9 @@ export default function PropertySearch() {
                       </div>
                     </div>
                     <CardBody>
-                      <h3 className="font-bold text-lg mb-1">{property.name}</h3>
+                      <h3 className="font-bold text-lg mb-1">
+                        {property.name}
+                      </h3>
                       <p className="text-gray-600 flex items-center mb-2">
                         <SvgIcon icon={mapMarkerIcon} className="mr-1" />{" "}
                         {property.location}
@@ -341,7 +339,8 @@ export default function PropertySearch() {
                           <Bed size={16} className="mr-1" /> {property.bedrooms}
                         </span>
                         <span className="flex items-center">
-                          <Bath size={16} className="mr-1" /> {property.bathrooms}
+                          <Bath size={16} className="mr-1" />{" "}
+                          {property.bathrooms}
                         </span>
                         <span className="flex items-center">
                           <SvgIcon
@@ -407,8 +406,8 @@ export default function PropertySearch() {
                           Beds
                         </span>
                         <span className="flex items-center">
-                          <Bath size={16} className="mr-1" /> {property.bathrooms}{" "}
-                          Baths
+                          <Bath size={16} className="mr-1" />{" "}
+                          {property.bathrooms} Baths
                         </span>
                         <span className="flex items-center">
                           <SvgIcon

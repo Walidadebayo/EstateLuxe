@@ -235,7 +235,7 @@ export default function ContactPage() {
                     </div>
                   </div>
                   <Map
-                    center={[40.7128, 74.0060]}
+                    center={[40.7128, 74.006]}
                     zoom={1}
                     style={{ height: "300px" }}
                   >
@@ -249,7 +249,7 @@ export default function ContactPage() {
                       <MapMarkerLayer
                         data={[
                           {
-                            latlng: [40.7128, 74.0060],
+                            latlng: [40.7128, 74.006],
                             name: "office",
                           },
                         ]}
@@ -286,7 +286,9 @@ export default function ContactPage() {
                 <div className="mt-6 bg-gray-50 p-4 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <MessageSquare className="text-primary" size={18} />
-                    <h3 className="font-semibold">Need Immediate Assistance?</h3>
+                    <h3 className="font-semibold">
+                      Need Immediate Assistance?
+                    </h3>
                   </div>
                   <p className="text-sm text-gray-600 mb-3">
                     Our AI assistant is available 24/7 to help with your

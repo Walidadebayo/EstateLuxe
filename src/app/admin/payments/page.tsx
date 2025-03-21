@@ -53,7 +53,7 @@ export default function PaymentTracker() {
   });
   const [showDialog, setShowDialog] = useState(false);
   const [editingPayment, setEditingPayment] = useState<PaymentType | null>(
-    null
+    null,
   );
   const [showReminders, setShowReminders] = useState(false);
 
@@ -113,7 +113,7 @@ export default function PaymentTracker() {
     if (editingPayment) {
       // Update payment
       updatedPayments = payments.map((p) =>
-        p.id === editingPayment.id ? { ...values, id: editingPayment.id } : p
+        p.id === editingPayment.id ? { ...values, id: editingPayment.id } : p,
       );
       setPayments(updatedPayments);
     } else {
@@ -131,10 +131,10 @@ export default function PaymentTracker() {
     // Recalculate stats using the updated payments array, not the state which hasn't updated yet
     const paid = updatedPayments.filter((p) => p.status === "Paid").length;
     const pending = updatedPayments.filter(
-      (p) => p.status === "Pending"
+      (p) => p.status === "Pending",
     ).length;
     const overdue = updatedPayments.filter(
-      (p) => p.status === "Overdue"
+      (p) => p.status === "Overdue",
     ).length;
 
     setStats({
@@ -191,7 +191,10 @@ export default function PaymentTracker() {
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-3xl font-bold">Payment Tracker</h1>
             <div className="flex gap-2">
-              <Button onClick={handleSendReminders} startIcon={<AlertTriangle />}>
+              <Button
+                onClick={handleSendReminders}
+                startIcon={<AlertTriangle />}
+              >
                 Send Reminders
               </Button>
               <Button startIcon={<Plus />} onClick={handleAddPayment}>
@@ -292,7 +295,7 @@ export default function PaymentTracker() {
                 <div className="space-y-4">
                   {payments.slice(0, 5).map((payment) => {
                     const tenant = mockTenants.find(
-                      (t) => t.id === payment.tenantId
+                      (t) => t.id === payment.tenantId,
                     );
                     let statusClass = "px-2 py-1 rounded text-xs font-medium";
 
@@ -334,7 +337,9 @@ export default function PaymentTracker() {
           {/* Payments Grid */}
           <Card>
             <CardBody>
-              <CardTitle className="text-xl font-bold mb-4">All Payments</CardTitle>
+              <CardTitle className="text-xl font-bold mb-4">
+                All Payments
+              </CardTitle>
               <Grid
                 data={processedData}
                 pageable={true}
@@ -349,7 +354,7 @@ export default function PaymentTracker() {
                   cells={{
                     data: (props) => {
                       const tenant = mockTenants.find(
-                        (t) => t.id === props.dataItem.tenantId
+                        (t) => t.id === props.dataItem.tenantId,
                       );
                       return <td>{tenant?.name || "Unknown"}</td>;
                     },
@@ -360,7 +365,9 @@ export default function PaymentTracker() {
                   title="Date"
                   cells={{
                     data: (props) => (
-                      <td>{new Date(props.dataItem.date).toLocaleDateString()}</td>
+                      <td>
+                        {new Date(props.dataItem.date).toLocaleDateString()}
+                      </td>
                     ),
                   }}
                 />
@@ -448,7 +455,9 @@ export default function PaymentTracker() {
                         data={tenantOptions}
                         textField="name"
                         dataItemKey="id"
-                        validator={(value) => (!value ? "Tenant is required" : "")}
+                        validator={(value) =>
+                          !value ? "Tenant is required" : ""
+                        }
                       />
 
                       <Field
@@ -468,7 +477,9 @@ export default function PaymentTracker() {
                         label="Payment Date"
                         component={DateInput}
                         format="yyyy-MM-dd"
-                        validator={(value) => (!value ? "Date is required" : "")}
+                        validator={(value) =>
+                          !value ? "Date is required" : ""
+                        }
                       />
                       {/* <DatePicker /> */}
 
@@ -517,14 +528,18 @@ export default function PaymentTracker() {
               width={600}
             >
               <div className="p-4">
-                <p className="mb-4">The following tenants have overdue payments:</p>
+                <p className="mb-4">
+                  The following tenants have overdue payments:
+                </p>
 
                 {overduePayments.length > 0 ? (
                   <div className="space-y-4 mb-4">
                     {overduePayments.map((payment) => (
                       <div key={payment.id} className="border rounded-lg p-4">
                         <div className="flex justify-between mb-2">
-                          <h3 className="font-semibold">{payment.tenantName}</h3>
+                          <h3 className="font-semibold">
+                            {payment.tenantName}
+                          </h3>
                           <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-medium">
                             Overdue
                           </span>
@@ -558,7 +573,9 @@ export default function PaymentTracker() {
               </div>
               <DialogActionsBar>
                 <Button onClick={() => setShowReminders(false)}>Close</Button>
-                {overduePayments.length > 0 && <Button>Send All Reminders</Button>}
+                {overduePayments.length > 0 && (
+                  <Button>Send All Reminders</Button>
+                )}
               </DialogActionsBar>
             </Dialog>
           )}

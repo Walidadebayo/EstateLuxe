@@ -185,7 +185,7 @@ export default function PropertyDetails() {
             )}
 
             {/* Property Stats */}
-            <div className="grid grid-cols-4 gap-4 mb-8">
+            <div className="grid sm:grid-cols-4 grid-cols-2  gap-4 mb-8">
               <Card className="text-center p-4 dark:!bg-gray-800">
                 <CardBody>
                   <div className="flex flex-col items-center">

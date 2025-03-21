@@ -64,8 +64,8 @@ export function Navigation() {
         { name: "Home", href: "/", icon: Home },
         { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
         { name: "Properties", href: "/admin/properties", icon: Building },
-        { name: "Tenants", href: "/tenants", icon: Users },
-        { name: "Payments", href: "/payments", icon: CreditCard },
+        { name: "Tenants", href: "/admin/tenants", icon: Users },
+        { name: "Payments", href: "/admin/payments", icon: CreditCard },
       ];
     } else if (isAuthenticated) {
       return [
@@ -164,7 +164,7 @@ export function Navigation() {
                           : isAdmin
                             ? `/admin/${e.item.toLowerCase()}`
                             : `/${e.item.toLowerCase().replace(" ", "-")}`
-                    }`
+                    }`,
                   );
                 }
               }}

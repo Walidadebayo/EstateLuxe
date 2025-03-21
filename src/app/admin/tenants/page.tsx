@@ -90,8 +90,8 @@ export default function TenantManagement() {
       // Update tenant
       setTenants(
         tenants.map((t) =>
-          t.id === editingTenant.id ? { ...values, id: editingTenant.id } : t
-        )
+          t.id === editingTenant.id ? { ...values, id: editingTenant.id } : t,
+        ),
       );
     } else {
       // Add new tenant
@@ -118,7 +118,6 @@ export default function TenantManagement() {
     id: property.id,
     name: property.name,
   }));
-
 
   return (
     <MetaTitle title="Tenant Management">
@@ -148,7 +147,7 @@ export default function TenantManagement() {
               cells={{
                 data: (props) => {
                   const property = mockProperties.find(
-                    (p) => p.id === props.dataItem.propertyId
+                    (p) => p.id === props.dataItem.propertyId,
                   );
                   return <td>{property?.name || "Unknown"}</td>;
                 },
@@ -170,7 +169,9 @@ export default function TenantManagement() {
               title="Lease End"
               cells={{
                 data: (props) => (
-                  <td>{new Date(props.dataItem.leaseEnd).toLocaleDateString()}</td>
+                  <td>
+                    {new Date(props.dataItem.leaseEnd).toLocaleDateString()}
+                  </td>
                 ),
               }}
             />
@@ -238,8 +239,8 @@ export default function TenantManagement() {
                 isDeleting
                   ? "Delete Tenant"
                   : editingTenant
-                  ? "Edit Tenant"
-                  : "Add Tenant"
+                    ? "Edit Tenant"
+                    : "Add Tenant"
               }
               onClose={handleCloseDialog}
               width={500}
@@ -261,7 +262,7 @@ export default function TenantManagement() {
                       propertyId: "",
                       leaseStart: new Date(),
                       leaseEnd: new Date(
-                        new Date().setFullYear(new Date().getFullYear() + 1)
+                        new Date().setFullYear(new Date().getFullYear() + 1),
                       ),
                       rentAmount: 0,
                       paymentStatus: "Pending",
@@ -276,7 +277,9 @@ export default function TenantManagement() {
                           name="name"
                           label="Tenant Name"
                           component={Input}
-                          validator={(value) => (!value ? "Name is required" : "")}
+                          validator={(value) =>
+                            !value ? "Name is required" : ""
+                          }
                         />
 
                         <Field
@@ -285,7 +288,9 @@ export default function TenantManagement() {
                           label="Email"
                           type="email"
                           component={Input}
-                          validator={(value) => (!value ? "Email is required" : "")}
+                          validator={(value) =>
+                            !value ? "Email is required" : ""
+                          }
                         />
 
                         <Field
@@ -293,7 +298,9 @@ export default function TenantManagement() {
                           name="phone"
                           label="Phone"
                           component={Input}
-                          validator={(value) => (!value ? "Phone is required" : "")}
+                          validator={(value) =>
+                            !value ? "Phone is required" : ""
+                          }
                         />
 
                         <Field
@@ -342,7 +349,9 @@ export default function TenantManagement() {
                           format="c2"
                           component={NumericTextBox}
                           validator={(value) =>
-                            value <= 0 ? "Rent amount must be greater than 0" : ""
+                            value <= 0
+                              ? "Rent amount must be greater than 0"
+                              : ""
                           }
                         />
 

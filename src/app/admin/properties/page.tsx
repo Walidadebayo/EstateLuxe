@@ -26,7 +26,7 @@ import { useRouter } from "next/navigation";
 import { mockProperties } from "@/lib/mock-data";
 import type { PropertyType } from "@/lib/types";
 import { SvgIcon } from "@progress/kendo-react-common";
-import { arrowLeftIcon, xIcon } from "@progress/kendo-svg-icons";
+import { arrowLeftIcon, eyeIcon, xIcon } from "@progress/kendo-svg-icons";
 import { ProtectedRoute } from "@/components/protected-route";
 import MetaTitle from "@/components/MetaTitle";
 
@@ -195,7 +195,9 @@ export default function AdminPropertiesPage() {
                   icon: notification.type === "success" ? true : false,
                 }}
                 closable={true}
-                onClose={() => setNotification({ ...notification, show: false })}
+                onClose={() =>
+                  setNotification({ ...notification, show: false })
+                }
               >
                 <span>{notification.message}</span>
               </Notification>
@@ -296,6 +298,15 @@ export default function AdminPropertiesPage() {
                           fillMode="flat"
                           onClick={() => handleDeleteProperty(props.dataItem)}
                         />
+                        <Button
+                          startIcon={<SvgIcon icon={eyeIcon} />}
+                          title="View Details"
+                          fillMode="flat"
+                          size="large"
+                          onClick={() =>
+                            router.push(`/properties/${props.dataItem.id}`)
+                          }
+                        />
                       </ButtonGroup>
                     </td>
                   )}
@@ -311,8 +322,8 @@ export default function AdminPropertiesPage() {
                 dialogAction === "add"
                   ? "Add Property"
                   : dialogAction === "edit"
-                  ? "Edit Property"
-                  : "Delete Property"
+                    ? "Edit Property"
+                    : "Delete Property"
               }
               onClose={handleCloseDialog}
               width={dialogAction === "delete" ? 400 : 800}
@@ -323,7 +334,9 @@ export default function AdminPropertiesPage() {
                     Are you sure you want to delete this property?
                   </p>
                   <p className="font-semibold">{selectedProperty?.name}</p>
-                  <p className="text-foreground">{selectedProperty?.location}</p>
+                  <p className="text-foreground">
+                    {selectedProperty?.location}
+                  </p>
                 </div>
               ) : (
                 <Form
@@ -408,7 +421,9 @@ export default function AdminPropertiesPage() {
                             label="Square Feet"
                             component={NumericTextBox}
                             validator={(value) =>
-                              value <= 0 ? "Square feet must be greater than 0" : ""
+                              value <= 0
+                                ? "Square feet must be greater than 0"
+                                : ""
                             }
                           />
                         </div>
@@ -506,8 +521,8 @@ export default function AdminPropertiesPage() {
                             withCredentials={false}
                           />
                           <p className="text-xs text-gray-500 mt-1">
-                            Note: In this demo, images are not actually uploaded.
-                            Use the Image URL field instead.
+                            Note: In this demo, images are not actually
+                            uploaded. Use the Image URL field instead.
                           </p>
                         </div>
                       </div>
@@ -524,7 +539,9 @@ export default function AdminPropertiesPage() {
                           disabled={!fieldRenderProps.allowSubmit}
                           onClick={fieldRenderProps.onSubmit}
                         >
-                          {dialogAction === "add" ? "Add Property" : "Save Changes"}
+                          {dialogAction === "add"
+                            ? "Add Property"
+                            : "Save Changes"}
                         </Button>
                       </DialogActionsBar>
                     </FormElement>

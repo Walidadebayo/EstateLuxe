@@ -150,12 +150,18 @@ export default function UserFavourites() {
                             className="rounded-full p-2 shadow-sm"
                             onClick={() => handleRemoveFavourite(property.id)}
                           >
-                            <SvgIcon icon={heartOutlineIcon} className="text-red-500" size="large" />
+                            <SvgIcon
+                              icon={heartOutlineIcon}
+                              className="text-red-500"
+                              size="large"
+                            />
                           </Button>
                         </div>
                       </div>
                       <CardBody>
-                        <h3 className="font-bold text-lg mb-1">{property.name}</h3>
+                        <h3 className="font-bold text-lg mb-1">
+                          {property.name}
+                        </h3>
                         <p className="text-gray-600 flex items-center mb-2">
                           <SvgIcon icon={mapMarkerIcon} className="mr-1" />{" "}
                           {property.location}
@@ -165,10 +171,12 @@ export default function UserFavourites() {
                         </p>
                         <div className="flex justify-between text-gray-600 mb-4">
                           <span className="flex items-center">
-                            <Bed size={16} className="mr-1" /> {property.bedrooms}
+                            <Bed size={16} className="mr-1" />{" "}
+                            {property.bedrooms}
                           </span>
                           <span className="flex items-center">
-                            <Bath size={16} className="mr-1" /> {property.bathrooms}
+                            <Bath size={16} className="mr-1" />{" "}
+                            {property.bathrooms}
                           </span>
                           <span className="flex items-center">
                             <SvgIcon icon={homeIcon} className="mr-1" />{" "}
@@ -189,7 +197,8 @@ export default function UserFavourites() {
                         width={200}
                         height={200}
                         src={
-                          property.image || `/placeholder.svg?height=150&width=200`
+                          property.image ||
+                          `/placeholder.svg?height=150&width=200`
                         }
                         alt={property.name}
                         className="w-full md:w-50 object-cover"
@@ -204,7 +213,10 @@ export default function UserFavourites() {
                             className="p-1"
                             onClick={() => handleRemoveFavourite(property.id)}
                           >
-                            <SvgIcon icon={heartOutlineIcon} className="text-red-500" />
+                            <SvgIcon
+                              icon={heartOutlineIcon}
+                              className="text-red-500"
+                            />
                           </Button>
                         </div>
                         <p className="text-gray-600 flex items-center mb-2">
@@ -216,12 +228,12 @@ export default function UserFavourites() {
                         </p>
                         <div className="flex justify-between text-gray-600 mb-4">
                           <span className="flex items-center">
-                            <Bed size={16} className="mr-1" /> {property.bedrooms}{" "}
-                            Beds
+                            <Bed size={16} className="mr-1" />{" "}
+                            {property.bedrooms} Beds
                           </span>
                           <span className="flex items-center">
-                            <Bath size={16} className="mr-1" /> {property.bathrooms}{" "}
-                            Baths
+                            <Bath size={16} className="mr-1" />{" "}
+                            {property.bathrooms} Baths
                           </span>
                           <span className="flex items-center">
                             <SvgIcon icon={homeIcon} className="mr-1" />{" "}
@@ -240,8 +252,14 @@ export default function UserFavourites() {
           ) : (
             <Card>
               <CardBody className="text-center py-12">
-                <SvgIcon icon={heartOutlineIcon} size="xxlarge" className="mx-auto mb-4 text-gray-300" />
-                <h3 className="text-xl font-bold mb-2">No Favourite Properties</h3>
+                <SvgIcon
+                  icon={heartOutlineIcon}
+                  size="xxlarge"
+                  className="mx-auto mb-4 text-gray-300"
+                />
+                <h3 className="text-xl font-bold mb-2">
+                  No Favourite Properties
+                </h3>
                 <p className="text-gray-600 mb-4">
                   You haven&apos;t saved any properties to your favourites yet.
                 </p>

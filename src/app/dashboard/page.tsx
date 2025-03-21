@@ -164,7 +164,10 @@ export default function UserDashboard() {
               <p className="text-gray-600">Welcome back, John Doe</p>
             </div>
             <div className="flex gap-2 mt-4 md:mt-0">
-              <Button fillMode="flat" startIcon={<SvgIcon icon={bellIcon} size="xlarge" />}>
+              <Button
+                fillMode="flat"
+                startIcon={<SvgIcon icon={bellIcon} size="xlarge" />}
+              >
                 Notifications
               </Button>
               <Button fillMode="flat" startIcon={<MessageSquare />}>
@@ -216,7 +219,9 @@ export default function UserDashboard() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">Pending Payments</p>
-                    <p className="text-2xl font-bold">{upcomingPayments.length}</p>
+                    <p className="text-2xl font-bold">
+                      {upcomingPayments.length}
+                    </p>
                   </div>
                 </div>
               </CardBody>
@@ -287,14 +292,18 @@ export default function UserDashboard() {
                               </div>
                               <div className="flex gap-2">
                                 <Button
-                                  onClick={() => handleViewProperty(property.id)}
+                                  onClick={() =>
+                                    handleViewProperty(property.id)
+                                  }
                                 >
                                   View Details
                                 </Button>
                                 <Button
                                   fillMode="flat"
                                   startIcon={<SvgIcon icon={heartIcon} />}
-                                  onClick={() => handleRemoveFavourite(property.id)}
+                                  onClick={() =>
+                                    handleRemoveFavourite(property.id)
+                                  }
                                 >
                                   Remove
                                 </Button>
@@ -305,9 +314,16 @@ export default function UserDashboard() {
                       ))
                     ) : (
                       <div className="text-center py-8 text-gray-500">
-                        <Heart size={48} className="mx-auto mb-4 text-gray-300" />
+                        <Heart
+                          size={48}
+                          className="mx-auto mb-4 text-gray-300"
+                        />
                         <p>You haven&apos;t saved any properties yet.</p>
-                        <Button className="mt-4" themeColor="primary" onClick={() => router.push("/search")}>
+                        <Button
+                          className="mt-4"
+                          themeColor="primary"
+                          onClick={() => router.push("/search")}
+                        >
                           Browse Properties
                         </Button>
                       </div>
@@ -366,7 +382,8 @@ export default function UserDashboard() {
                       cells={{
                         data: (props) => {
                           const status = props.dataItem.status;
-                          let statusClass = "px-2 py-1 rounded text-xs font-medium";
+                          let statusClass =
+                            "px-2 py-1 rounded text-xs font-medium";
 
                           if (status === "Paid") {
                             statusClass += " bg-green-100 text-green-800";
@@ -403,7 +420,9 @@ export default function UserDashboard() {
                           <p className="font-semibold">{payment.type}</p>
                           <p className="font-bold">${payment.amount}</p>
                         </div>
-                        <p className="text-sm text-gray-600">{payment.property}</p>
+                        <p className="text-sm text-gray-600">
+                          {payment.property}
+                        </p>
                         <div className="flex justify-between items-center mt-2">
                           <p className="text-xs text-gray-500">
                             Due: {payment.dueDate.toLocaleDateString()}

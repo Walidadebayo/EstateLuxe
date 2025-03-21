@@ -160,7 +160,13 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
                 transform: `rotateY(${(360 / faceCount) * i}deg) translateZ(${radius}px)`,
               }}
             >
-              <Image src={url} alt="gallery" className="gallery-img" width={300} height={200} />
+              <Image
+                src={url}
+                alt="gallery"
+                className="gallery-img"
+                width={300}
+                height={200}
+              />
             </div>
           ))}
         </motion.div>

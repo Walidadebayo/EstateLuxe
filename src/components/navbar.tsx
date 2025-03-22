@@ -98,8 +98,8 @@ export function NavBar({ isAdminView = false, onMenuToggle }: NavigationProps) {
   };
 
   return (
-    <>
-      <AppBar className="!border-b shadow-sm py-2 px-4 dark:border-gray-700 !sticky top-0 z-50 dark:shadow-slate-600 backdrop-blur-sm backdrop-filter">
+    <div className="sticky top-0 z-50 shadow-sm  dark:shadow-slate-600">
+      <AppBar className="!border-b py-2 px-4 dark:border-gray-700">
         <AppBarSection>
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 text-primary">
@@ -141,11 +141,11 @@ export function NavBar({ isAdminView = false, onMenuToggle }: NavigationProps) {
 
         <AppBarSpacer />
 
-        <AppBarSection className="ml-auto !flex-col">
+        <AppBarSection className="ml-auto">
           {/* Search Bar */}
 
           {/* User Menu */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 max-[305px]:flex-col md:flex-row">
             {/* User Profile Button */}
             <DropDownButton
               text={
@@ -225,7 +225,7 @@ export function NavBar({ isAdminView = false, onMenuToggle }: NavigationProps) {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden z-50 sticky top-0 shadow-lg bg-[var(--kendo-color-light)] dark:bg-[var(--kendo-color-dark)]">
+        <div className="md:hidden shadow-lg bg-[var(--kendo-color-light)] dark:bg-[var(--kendo-color-dark)]">
           <div className="p-4 space-y-2">
             {navItems.map((item) => (
               <Link
@@ -245,6 +245,6 @@ export function NavBar({ isAdminView = false, onMenuToggle }: NavigationProps) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

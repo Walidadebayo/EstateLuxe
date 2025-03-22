@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/lib/auth-context";
 import React from "react";
 import { NavBar } from "./navbar";
 import { usePathname } from "next/navigation";

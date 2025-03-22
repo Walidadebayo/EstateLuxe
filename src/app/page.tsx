@@ -84,7 +84,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="relative h-[80vh] overflow-hidden">
+      <div className="relative sm:h-[80vh] overflow-hiden">
         <div className="absolute inset-0 bg-cover bg-center">
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -139,11 +139,13 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex gap-4 mt-5 absolute bottom-6">
+          <div className="flex gap-4 my-5 sm:absolute sm:bottom-7 flex-wrap justify-center">
             <Button
               fillMode="flat"
               className="bg-background/80 !text-white hover:bg-background/30 backdrop-blur-sm"
               onClick={() => router.push("/search")}
+              startIcon={<Search size={18} className="mr-2" />}
+              size={"large"}
             >
               Browse Properties
             </Button>
@@ -152,6 +154,7 @@ export default function HomePage() {
               className="bg-background/80 !text-white hover:bg-background/30 backdrop-blur-sm"
               onClick={() => router.push("/ai-assistant")}
               startIcon={<Bot size={18} className="mr-2" />}
+              size={"large"}
             >
               AI Assistant
             </Button>

@@ -162,14 +162,14 @@ export default function UserFavourites() {
                         <h3 className="font-bold text-lg mb-1">
                           {property.name}
                         </h3>
-                        <p className="text-gray-600 flex items-center mb-2">
+                        <p className="text-foreground flex items-center mb-2">
                           <SvgIcon icon={mapMarkerIcon} className="mr-1" />{" "}
                           {property.location}
                         </p>
                         <p className="text-xl font-bold text-primary mb-2">
                           ${property.price.toLocaleString()}
                         </p>
-                        <div className="flex justify-between text-gray-600 mb-4">
+                        <div className="flex justify-between text-foreground mb-4">
                           <span className="flex items-center">
                             <Bed size={16} className="mr-1" />{" "}
                             {property.bedrooms}
@@ -219,14 +219,14 @@ export default function UserFavourites() {
                             />
                           </Button>
                         </div>
-                        <p className="text-gray-600 flex items-center mb-2">
+                        <p className="text-foreground flex items-center mb-2">
                           <SvgIcon icon={mapMarkerIcon} className="mr-1" />{" "}
                           {property.location}
                         </p>
                         <p className="text-xl font-bold text-primary mb-2">
                           ${property.price.toLocaleString()}
                         </p>
-                        <div className="flex justify-between text-gray-600 mb-4">
+                        <div className="flex justify-between text-foreground mb-4">
                           <span className="flex items-center">
                             <Bed size={16} className="mr-1" />{" "}
                             {property.bedrooms} Beds
@@ -260,7 +260,7 @@ export default function UserFavourites() {
                 <h3 className="text-xl font-bold mb-2">
                   No Favourite Properties
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-foreground mb-4">
                   You haven&apos;t saved any properties to your favourites yet.
                 </p>
                 <Button onClick={() => router.push("/search")}>

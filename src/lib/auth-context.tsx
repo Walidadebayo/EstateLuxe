@@ -68,8 +68,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  // Check for existing session on mount
-  console.log("AuthProvider mounted");
   useEffect(() => {
     const storedUser = localStorage.getItem("auth_user");
     if (storedUser) {
@@ -83,7 +81,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (
     email: string,
     password: string,
-    role: UserRole,
+    role: UserRole
   ): Promise<boolean> => {
     setIsLoading(true);
 
@@ -92,7 +90,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // Find user with matching email and role
     const foundUser = mockUsers.find(
-      (u) => u.email === email && u.role === role && u.password === password,
+      (u) => u.email === email && u.role === role && u.password === password
     );
 
     if (foundUser) {
@@ -110,7 +108,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const register = async (
     name: string,
     email: string,
-    password: string,
+    password: string
   ): Promise<boolean> => {
     setIsLoading(true);
 

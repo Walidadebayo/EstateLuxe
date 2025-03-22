@@ -9,5 +9,4 @@ export default function Navigation() {
   const isAdminView = pathname.startsWith("/admin");
 
   return !isAdminView && <NavBar />;
-
 }

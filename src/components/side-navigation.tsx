@@ -25,9 +25,7 @@ export function SideNavigation({
 }) {
   return (
     <div className="h-screen border-r">
-      <div
-        className={`border-b dark:border-gray-500 mt-2 py-3`}
-      >
+      <div className={`border-b dark:border-gray-500 mt-2 py-3`}>
         {expanded ? (
           <div className="flex items-center justify-between gap-10 w-full px-3">
             <h1 className="text-xl font-bold text-center">PropManager</h1>

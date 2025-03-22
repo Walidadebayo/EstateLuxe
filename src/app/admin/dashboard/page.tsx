@@ -31,6 +31,7 @@ import {
   userIcon,
 } from "@progress/kendo-svg-icons";
 import Link from "next/link";
+import MetaTitle from "@/components/MetaTitle";
 
 const revenueData = [
   { month: "Jan", amount: 12500 },
@@ -261,27 +262,29 @@ function StatsCard({
   link: string;
 }) {
   return (
-    <Card className="overflow-hidden">
-      <CardBody className="p-0">
-        <div className="p-6">
-          <div className="flex items-center mb-4">
-            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mr-3">
-              {icon}
+    <MetaTitle title="Admin Dashboard">
+      <Card className="overflow-hidden">
+        <CardBody className="p-0">
+          <div className="p-6">
+            <div className="flex items-center mb-4">
+              <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mr-3">
+                {icon}
+              </div>
+              <h3 className="text-base font-medium text-foreground">{title}</h3>
             </div>
-            <h3 className="text-base font-medium text-foreground">{title}</h3>
+            <div className="flex items-end justify-between">
+              <span className="text-3xl font-bold">{value}</span>
+              <Link href={link}>
+                <Button
+                  startIcon={<SvgIcon icon={arrowRightIcon} />}
+                  fillMode="flat"
+                />
+              </Link>
+            </div>
           </div>
-          <div className="flex items-end justify-between">
-            <span className="text-3xl font-bold">{value}</span>
-            <Link href={link}>
-              <Button
-                startIcon={<SvgIcon icon={arrowRightIcon} />}
-                fillMode="flat"
-              />
-            </Link>
-          </div>
-        </div>
-      </CardBody>
-    </Card>
+        </CardBody>
+      </Card>
+    </MetaTitle>
   );
 }
 

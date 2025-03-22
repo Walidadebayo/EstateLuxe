@@ -102,7 +102,7 @@ export default function AiAssistantPage() {
 
       // Add initial message to chat history
       setChatHistory(
-        "EstateLuxeAI: Hello! I'm EstateLuxeAI, your real estate assistant. How can I help you today?"
+        "EstateLuxeAI: Hello! I'm EstateLuxeAI, your real estate assistant. How can I help you today?",
       );
     }
   }, [showChat, messages.length]);
@@ -166,7 +166,7 @@ export default function AiAssistantPage() {
 
         // Check if we need to add property attachments
         const propertyAttachments = getPropertyAttachmentsIfNeeded(
-          userMessage.text || ""
+          userMessage.text || "",
         );
 
         updatedMessages[lastIndex] = {
@@ -181,7 +181,7 @@ export default function AiAssistantPage() {
           attachments: propertyAttachments,
           suggestedActions: getSuggestedActionsForResponse(
             fullText,
-            userMessage.text || ""
+            userMessage.text || "",
           ),
           onRequestSelection: () => {},
           isFirstItemInGroup: false,
@@ -292,7 +292,7 @@ export default function AiAssistantPage() {
 
   // Function to get property attachments if needed based on the AI response and user query
   const getPropertyAttachmentsIfNeeded = (
-    userQuery: string
+    userQuery: string,
   ): Attachment[] | undefined => {
     const userQueryLower = userQuery.toLowerCase();
 
@@ -354,7 +354,7 @@ export default function AiAssistantPage() {
   // Function to get suggested actions based on the AI response and user query
   const getSuggestedActionsForResponse = (
     aiResponse: string,
-    userQuery: string
+    userQuery: string,
   ) => {
     const userQueryLower = userQuery.toLowerCase();
     const aiResponseLower = aiResponse.toLowerCase();
@@ -451,7 +451,7 @@ export default function AiAssistantPage() {
   // Function to get recommended properties
   const getRecommendedProperties = (
     count: number,
-    offset = false
+    offset = false,
   ): PropertyType[] => {
     const startIndex = offset ? 3 : 0;
     return mockProperties.slice(startIndex, startIndex + count);
@@ -460,7 +460,7 @@ export default function AiAssistantPage() {
   // Function to create a property card component
   const createPropertyCard = (
     property: PropertyType,
-    onClick: (id: string) => void
+    onClick: (id: string) => void,
   ) => {
     return (
       <div

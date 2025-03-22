@@ -185,11 +185,17 @@ export default function RegisterPage() {
                           className="ml-2 block text-sm text-gray-600"
                         >
                           I agree to the{" "}
-                          <a href="#" className="text-primary hover:underline">
+                          <a
+                            href="/terms-of-service"
+                            className="text-primary hover:underline"
+                          >
                             Terms of Service
                           </a>{" "}
                           and{" "}
-                          <a href="#" className="text-primary hover:underline">
+                          <a
+                            href="/privacy"
+                            className="text-primary hover:underline"
+                          >
                             Privacy Policy
                           </a>
                         </label>

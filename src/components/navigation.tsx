@@ -3,9 +3,12 @@
 import { useAuth } from "@/lib/auth-context";
 import React from "react";
 import { NavBar } from "./navbar";
+import { usePathname } from "next/navigation";
 
 export default function Navigation() {
-  const { isAdmin } = useAuth();
+  const pathname = usePathname();
+  const isAdminView = pathname.startsWith("/admin");
 
-  return !isAdmin && <NavBar />;
+  return !isAdminView && <NavBar />;
+
 }

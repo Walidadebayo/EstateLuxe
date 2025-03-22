@@ -107,6 +107,22 @@ export default function Footer() {
                   Contact Us
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-gray-400 hover:text-primary transition-colors"
+                >
+                  Privacy and Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms-of-service"
+                  className="text-gray-400 hover:text-primary transition-colors"
+                >
+                  Terms of service
+                </Link>
+              </li>
             </ul>
           </div>
 

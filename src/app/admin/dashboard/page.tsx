@@ -17,20 +17,19 @@ import {
   ChartTooltip,
 } from "@progress/kendo-react-charts";
 import { Button } from "@progress/kendo-react-buttons";
-import {
-  ArrowRight,
-  Home,
-  BarChart,
-  Users,
-  Calendar,
-  Building,
-  CreditCard,
-  ActivitySquare,
-} from "lucide-react";
+import { ActivitySquare } from "lucide-react";
 
 import { mockProperties, mockTenants, mockPayments } from "@/lib/mock-data";
 import { SvgIcon } from "@progress/kendo-react-common";
-import { arrowRightIcon, homeIcon } from "@progress/kendo-svg-icons";
+import {
+  arrowRightIcon,
+  buildingBlocksIcon,
+  calendarIcon,
+  gearsIcon,
+  graphIcon,
+  homeIcon,
+  userIcon,
+} from "@progress/kendo-svg-icons";
 import Link from "next/link";
 
 const revenueData = [
@@ -79,8 +78,8 @@ export default function Dashboard() {
       properties,
       tenants,
       totalRent,
-      occupancyRate: 85, // Mock data - would calculate from actual occupancy
-      pendingMaintenance: 8, // Mock data
+      occupancyRate: 85,
+      pendingMaintenance: 8,
       overdueTenants: overduePayments,
     });
   }, []);
@@ -94,38 +93,46 @@ export default function Dashboard() {
         <StatsCard
           title="Properties"
           value={stats.properties}
-          icon={<Building className="text-blue-600" />}
-          link="/dashboard/properties"
+          icon={
+            <SvgIcon
+              icon={buildingBlocksIcon}
+              size="large"
+              themeColor="primary"
+            />
+          }
+          link="/admin/properties"
         />
         <StatsCard
           title="Tenants"
           value={stats.tenants}
-          icon={<Users className="text-green-600" />}
-          link="/dashboard/tenants"
+          icon={<SvgIcon icon={userIcon} size="large" themeColor="success" />}
+          link="/admin/tenants"
         />
         <StatsCard
           title="Monthly Revenue"
           value={`$${stats.totalRent.toLocaleString()}`}
-          icon={<CreditCard className="text-purple-600" />}
-          link="/dashboard/payments"
+          icon={<SvgIcon icon={graphIcon} size="large" themeColor="tertiary" />}
+          link="/admin/payments"
         />
         <StatsCard
           title="Occupancy Rate"
           value={`${stats.occupancyRate}%`}
-          icon={<Home className="text-orange-600" />}
-          link="/dashboard/reports"
+          icon={<SvgIcon icon={homeIcon} size="large" themeColor="info" />}
+          link="/admin/reports"
         />
         <StatsCard
           title="Pending Maintenance"
           value={stats.pendingMaintenance}
           icon={<ActivitySquare className="text-red-600" />}
-          link="/dashboard/maintenance"
+          link="/admin/maintenance"
         />
         <StatsCard
           title="Overdue Payments"
           value={stats.overdueTenants}
-          icon={<Calendar className="text-yellow-600" />}
-          link="/dashboard/payments"
+          icon={
+            <SvgIcon icon={calendarIcon} size="large" themeColor="warning" />
+          }
+          link="/admin/payments"
         />
       </div>
 
@@ -135,7 +142,10 @@ export default function Dashboard() {
           <CardHeader className="border-b">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-bold">Revenue Trend</h2>
-              <Button startIcon={<BarChart size={16} />} fillMode="flat">
+              <Button
+                startIcon={<SvgIcon icon={graphIcon} size="large" />}
+                fillMode="flat"
+              >
                 Reports
               </Button>
             </div>
@@ -226,8 +236,11 @@ export default function Dashboard() {
           </div>
         </CardBody>
         <CardActions>
-          <Button fillMode="flat" className="ml-auto"
-            startIcon={<SvgIcon icon={arrowRightIcon} />}>
+          <Button
+            fillMode="flat"
+            className="ml-auto"
+            endIcon={<SvgIcon icon={arrowRightIcon} />}
+          >
             View All Activity
           </Button>
         </CardActions>
@@ -255,7 +268,7 @@ function StatsCard({
             <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mr-3">
               {icon}
             </div>
-            <h3 className="text-base font-medium text-slate-600">{title}</h3>
+            <h3 className="text-base font-medium text-foreground">{title}</h3>
           </div>
           <div className="flex items-end justify-between">
             <span className="text-3xl font-bold">{value}</span>
@@ -286,15 +299,23 @@ function ActivityItem({
   const getIcon = () => {
     switch (type) {
       case "tenant":
-        return <Users size={16} className="text-blue-600" />;
+        return <SvgIcon icon={userIcon} size="large" themeColor="primary" />;
       case "payment":
-        return <CreditCard size={16} className="text-green-600" />;
+        return <SvgIcon icon={graphIcon} size="large" themeColor="success" />;
       case "maintenance":
-        return <ActivitySquare size={16} className="text-red-600" />;
+        return <SvgIcon icon={gearsIcon} size="large" themeColor="error" />;
       case "lease":
-        return <Calendar size={16} className="text-yellow-600" />;
+        return (
+          <SvgIcon icon={calendarIcon} size="large" themeColor="warning" />
+        );
       case "property":
-        return <Building size={16} className="text-purple-600" />;
+        return (
+          <SvgIcon
+            icon={buildingBlocksIcon}
+            size="large"
+            themeColor="tertiary"
+          />
+        );
       default:
         return <div />;
     }
@@ -307,9 +328,9 @@ function ActivityItem({
       </div>
       <div className="flex-1">
         <h4 className="font-medium">{title}</h4>
-        <p className="text-sm text-slate-600">{description}</p>
+        <p className="text-sm text-foreground">{description}</p>
       </div>
-      <div className="text-sm text-slate-500 whitespace-nowrap">{date}</div>
+      <div className="text-sm text-foreground whitespace-nowrap">{date}</div>
     </div>
   );
 }

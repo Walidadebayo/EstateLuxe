@@ -391,7 +391,7 @@ export default function TenantManagement() {
               {isDeleting && (
                 <DialogActionsBar>
                   <Button onClick={handleCloseDialog}>Cancel</Button>
-                  <Button onClick={() => handleSubmit({} as TenantType)}>
+                  <Button themeColor="primary" onClick={() => handleSubmit({} as TenantType)}>
                     Delete
                   </Button>
                 </DialogActionsBar>

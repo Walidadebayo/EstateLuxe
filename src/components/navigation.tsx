@@ -9,7 +9,6 @@ import {
   AppBarSpacer,
 } from "@progress/kendo-react-layout";
 import { Button, DropDownButton } from "@progress/kendo-react-buttons";
-// import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import {
   Home,
   Heart,
@@ -26,7 +25,12 @@ import { DropDownList } from "@progress/kendo-react-dropdowns";
 import Image from "next/image";
 import { useAuth } from "@/lib/auth-context";
 
-export function Navigation() {
+interface NavigationProps {
+  isAdminView?: boolean;
+  onMenuToggle?: () => void;
+}
+
+export function Navigation({ isAdminView = false, onMenuToggle }: NavigationProps) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -59,15 +63,16 @@ export function Navigation() {
   }, [theme]);
 
   const getNavItems = () => {
-    if (isAdmin) {
-      return [
-        { name: "Home", href: "/", icon: Home },
-        { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-        { name: "Properties", href: "/admin/properties", icon: Building },
-        { name: "Tenants", href: "/admin/tenants", icon: Users },
-        { name: "Payments", href: "/admin/payments", icon: CreditCard },
-      ];
-    } else if (isAuthenticated) {
+    // if (isAdmin) {
+    //   return [
+    //     { name: "Home", href: "/", icon: Home },
+    //     // { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
+    //     // { name: "Properties", href: "/admin/properties", icon: Building },
+    //     // { name: "Tenants", href: "/admin/tenants", icon: Users },
+    //     // { name: "Payments", href: "/admin/payments", icon: CreditCard },
+    //   ];
+    // } else
+     if (isAuthenticated) {
       return [
         { name: "Home", href: "/", icon: Home },
         { name: "Properties", href: "/search", icon: Building },
@@ -106,7 +111,7 @@ export function Navigation() {
                 height={45}
                 className="rounded-full"
               />
-              <span className="text-xl font-bold">EstateLuxe</span>
+              <span className="text-xl font-bold sm:block hidden">EstateLuxe</span>
             </Link>
           </div>
         </AppBarSection>
@@ -197,7 +202,13 @@ export function Navigation() {
             {/* Mobile Menu Button */}
             <Button
               className="md:!hidden dark:!text-gray-200 dark:!bg-gray-900"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => {
+                if (isAdminView && onMenuToggle) {
+                  onMenuToggle();
+                } else {
+                  setMobileMenuOpen(!mobileMenuOpen);
+                }
+              }}
             >
               {mobileMenuOpen ? (
                 <SvgIcon icon={xIcon} />
